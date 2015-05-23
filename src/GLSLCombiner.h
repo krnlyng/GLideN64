@@ -116,7 +116,7 @@ private:
 			uTexNoise, uTlutImage, uZlutImage, uDepthImage,
 			uFogUsage, uEnableLod, uEnableAlphaTest,
 			uEnableDepth, uEnableDepthCompare, uEnableDepthUpdate,
-			uDepthMode, uDepthSource, uRenderState,
+			uDepthMode, uDepthSource, uRotationMatrix, uRenderState,
 			uMaxTile, uTextureDetail, uTexturePersp, uTextureFilterMode, uMSAASamples,
 			uAlphaCompareMode, uAlphaDitherMode, uColorDitherMode,
 			uCvgXAlpha, uAlphaCvgSel, uRenderTarget,
