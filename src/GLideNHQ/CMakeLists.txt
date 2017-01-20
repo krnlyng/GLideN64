@@ -97,9 +97,11 @@ if( NOT GHQCHK )
           osald
         )
       else(BCMHOST)
-        target_link_libraries(GLideNHQd PRIVATE
-          ${CMAKE_CURRENT_SOURCE_DIR}/lib/libpng.a
-          ${CMAKE_CURRENT_SOURCE_DIR}/lib/libz.a
+        FIND_PACKAGE( ZLIB REQUIRED )
+        FIND_PACKAGE( PNG REQUIRED )
+        target_link_libraries(GLideNHQd
+          ${PNG_LIBRARIES}
+          ${ZLIB_LIBRARIES}
           dl
           osald
         )
@@ -129,9 +131,11 @@ if( NOT GHQCHK )
           osal
         )
       else(PANDORA)
-        target_link_libraries(GLideNHQ PRIVATE
-          ${CMAKE_CURRENT_SOURCE_DIR}/lib/libpng.a
-          ${CMAKE_CURRENT_SOURCE_DIR}/lib/libz.a
+        FIND_PACKAGE( ZLIB REQUIRED )
+        FIND_PACKAGE( PNG REQUIRED )
+        target_link_libraries(GLideNHQ
+          ${PNG_LIBRARIES}
+          ${ZLIB_LIBRARIES}
           dl
           osal
         )
