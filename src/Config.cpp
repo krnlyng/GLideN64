@@ -26,8 +26,6 @@ void Config::resetToDefaults()
 	video.cropMode = cmDisable;
 	video.cropWidth = video.cropHeight = 0;
 
-    video.rotate = 0;
-
 	texture.maxAnisotropy = 0;
 	texture.bilinearMode = BILINEAR_STANDARD;
 	texture.maxBytes = 500 * gc_uMegabyte;

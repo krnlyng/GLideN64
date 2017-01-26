@@ -277,7 +277,6 @@ void ShaderCombiner::_locateUniforms() {
 
 	LocateUniform(uBlendMux1);
 	LocateUniform(uBlendMux2);
-    LocateUniform(uRotationMatrix)
 }
 
 void ShaderCombiner::_locate_attributes() const {
@@ -314,73 +313,8 @@ void ShaderCombiner::update(bool _bForce) {
 	updateScreenCoordsScale(_bForce);
 }
 
-void set_rotation_matrix(GLuint loc, int rotate)
-{
-    GLfloat mat[16];
-
-    /* first setup everything which is the same everytime */
-    /* (X, X, 0, 0)
-     * (X, X, 0, 0)
-     * (0, 0, 1, 0)
-     * (0, 0, 0, 1)
-     */
-
-    //mat[0] =  cos(angle);
-    //mat[1] =  sin(angle);
-    mat[2] = 0;
-    mat[3] = 0;
-
-    //mat[4] = -sin(angle);
-    //mat[5] =  cos(angle);
-    mat[6] = 0;
-    mat[7] = 0;
-
-    mat[8] = 0;
-    mat[9] = 0;
-    mat[10] = 1;
-    mat[11] = 0;
-
-    mat[12] = 0;
-    mat[13] = 0;
-    mat[14] = 0;
-    mat[15] = 1;
-
-    /* now set the actual rotation */
-    if(1 == rotate) // 90 degree
-    {
-        mat[0] =  0;
-        mat[1] =  1;
-        mat[4] = -1;
-        mat[5] =  0;
-    }
-    else if(2 == rotate) // 180 degree
-    {
-        mat[0] = -1;
-        mat[1] =  0;
-        mat[4] =  0;
-        mat[5] =  -1;
-    }
-    else if(3 == rotate) // 270 degree
-    {
-        mat[0] =  0;
-        mat[1] = -1;
-        mat[4] =  1;
-        mat[5] =  0;
-    }
-    else /* 0 degree, also fallback if input is wrong) */
-    {
-        mat[0] =  1;
-        mat[1] =  0;
-        mat[4] =  0;
-        mat[5] =  1;
-    }
-
-    glUniformMatrix4fv(loc, 1, GL_FALSE, mat);
-}
-
 void ShaderCombiner::updateRenderState(bool _bForce)
 {
-    set_rotation_matrix(m_uniforms.uRotationMatrix.loc, config.video.rotate);
 	m_uniforms.uRenderState.set(video().getRender().getRenderState(), _bForce);
 }
 
