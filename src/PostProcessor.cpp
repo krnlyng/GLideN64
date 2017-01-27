@@ -258,7 +258,7 @@ SHADER_VERSION
 "																			\n"
 "void main()																\n"
 "{																			\n"
-"	float vRotation = 6.0 * 3.1415926 / 4.0;													\n"
+"	float vRotation = 3.1415926 / 2.0;														\n"
 "      vec2 rotated = vec2(cos(vRotation) * (vTexCoord.x - 0.5) + sin(vRotation) * (gl_PointCoord.y - 0.5) + 0.5,					\n"
 "		                                cos(vRotation) * (vTexCoord.y - 0.5) - sin(vRotation) * (gl_PointCoord.x - 0.5) + 0.5);		\n"
 "    fragColor = texture2D( Sample0, rotated);       \n"
@@ -644,7 +644,7 @@ FrameBuffer * PostProcessor::doOrientationCorrection(FrameBuffer * _pBuffer)
 		return nullptr;
 
 	//if (config.generalEmulation.enableBlitScreenWorkaround == 0)
-	//	return _pBuffer;
+		return _pBuffer;
 
 	_preDraw(_pBuffer);
 
