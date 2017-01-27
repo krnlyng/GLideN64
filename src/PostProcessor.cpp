@@ -258,10 +258,7 @@ SHADER_VERSION
 "																			\n"
 "void main()																\n"
 "{																			\n"
-"	float vRotation = 3.1415926 / 2.0;														\n"
-"      vec2 rotated = vec2(cos(vRotation) * (vTexCoord.x - 0.5) + sin(vRotation) * (gl_PointCoord.y - 0.5) + 0.5,					\n"
-"		                                cos(vRotation) * (vTexCoord.y - 0.5) - sin(vRotation) * (gl_PointCoord.x - 0.5) + 0.5);		\n"
-"    fragColor = texture2D( Sample0, rotated);       \n"
+"    fragColor = texture2D( Sample0, vec2(1.0 - vTexCoord.x, 1.0 - vTexCoord.y));       \n"
 FRAGMENT_SHADER_END
 "}																			\n"
 ;
@@ -444,7 +441,7 @@ void PostProcessor::init()
 {
 	_initCommon();
 	_initGammaCorrection();
-	//if (config.generalEmulation.enableBlitScreenWorkaround != 0)
+	if (config.generalEmulation.enableBlitScreenWorkaround != 0)
 		_initOrientationCorrection();
 	if (config.bloomFilter.enable != 0)
 		_initBlur();
@@ -643,7 +640,7 @@ FrameBuffer * PostProcessor::doOrientationCorrection(FrameBuffer * _pBuffer)
 	if (_pBuffer == nullptr)
 		return nullptr;
 
-	//if (config.generalEmulation.enableBlitScreenWorkaround == 0)
+	if (config.generalEmulation.enableBlitScreenWorkaround == 0)
 		return _pBuffer;
 
 	_preDraw(_pBuffer);
