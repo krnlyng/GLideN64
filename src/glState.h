@@ -1,6 +1,10 @@
 #ifndef GLSTATE_H
 #define GLSTATE_H
 
+#include "Config.h"
+
+#include <cmath>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -290,13 +294,28 @@ void inline cache_glPolygonOffset (GLfloat factor, GLfloat units)
 void inline cache_glScissor (GLint x, GLint y, GLsizei width, GLsizei height)
 {
 	if (x != glState.cached_Scissor_x || y != glState.cached_Scissor_y || width != glState.cached_Scissor_width || height != glState.cached_Scissor_height) {
-		glScissor(x, y, width, height);
+		if(config.video.rotate == 3)
+		{
+			if(x == 0)
+			{
+				glScissor((float)y * ((float)config.video.windowedWidth / (float)config.video.windowedHeight), 0, height * (float)config.video.windowedWidth / (float)config.video.windowedHeight, width * (float)config.video.windowedHeight / (float)config.video.windowedWidth);
+			}
+			else
+			{
+				glScissor((float)y * ((float)config.video.windowedWidth / (float)config.video.windowedHeight), ((float)config.video.windowedWidth - width - (float)x) * ((float)config.video.windowedHeight / (float)config.video.windowedWidth), height * (float)config.video.windowedWidth / (float)config.video.windowedHeight, width * (float)config.video.windowedHeight / (float)config.video.windowedWidth);
+			}
+		}
+		else
+		{
+			glScissor(x, y, width, height);
+		}
 		glState.cached_Scissor_x = x;
 		glState.cached_Scissor_y = y;
 		glState.cached_Scissor_width = width;
 		glState.cached_Scissor_height = height;
 	}
 }
+
 #define glScissor(x, y, width, height) cache_glScissor(x, y, width, height)
 
 void inline cache_glUseProgram (GLuint program)
@@ -311,13 +330,28 @@ void inline cache_glUseProgram (GLuint program)
 void inline cache_glViewport (GLint x, GLint y, GLsizei width, GLsizei height)
 {
 	if (x != glState.cached_Viewport_x || y != glState.cached_Viewport_y || width != glState.cached_Viewport_width || height != glState.cached_Viewport_height) {
-		glViewport(x, y, width, height);
+		if(config.video.rotate == 3)
+		{
+			if(x == 0)
+			{
+				glViewport((float)y * ((float)config.video.windowedWidth / (float)config.video.windowedHeight), 0, height * (float)config.video.windowedWidth / (float)config.video.windowedHeight, width * (float)config.video.windowedHeight / (float)config.video.windowedWidth);
+			}
+			else
+			{
+				glViewport((float)y * ((float)config.video.windowedWidth / (float)config.video.windowedHeight), ((float)config.video.windowedWidth - width - (float)x) * ((float)config.video.windowedHeight / (float)config.video.windowedWidth), height * (float)config.video.windowedWidth / (float)config.video.windowedHeight, width * (float)config.video.windowedHeight / (float)config.video.windowedWidth);
+			}
+		}
+		else // todo
+		{
+			glViewport(x, y, width, height);
+		}
 		glState.cached_Viewport_x = x;
 		glState.cached_Viewport_y = y;
 		glState.cached_Viewport_width = width;
 		glState.cached_Viewport_height = height;
 	}
 }
+
 #define glViewport(x, y, width, height) cache_glViewport(x, y, width, height)
 
 #ifdef __cplusplus
