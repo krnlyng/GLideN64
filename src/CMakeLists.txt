@@ -199,7 +199,7 @@ endif(CRC_ARMV8)
 
 if(NEON_OPT)
   add_definitions(
-    -D__NEON_OPT
+    -D__NEON_OPT -mfpu=neon -mfloat-abi=hard
   )
   list(APPEND GLideN64_SOURCES
     3DMathNeon.cpp
